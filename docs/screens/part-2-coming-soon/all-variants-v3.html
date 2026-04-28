@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Part 2 — variants v3 (centered, 375×812)</title>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0A0A14;
+    font-family: 'Albert Sans', sans-serif;
+    padding: 40px 20px; min-height: 100vh;
+  }
+  .row { display: flex; gap: 32px; justify-content: center; align-items: flex-start; flex-wrap: wrap; }
+  .col { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .label {
+    font: 600 13px/17px 'Albert Sans';
+    color: #9499A3; letter-spacing: 0.24em; text-transform: uppercase;
+  }
+  .frame {
+    width: 375px; height: 812px;
+    background: #040405; color: #fff;
+    overflow: hidden; position: relative;
+    border-radius: 28px;
+    box-shadow: 0 0 0 1px #20222C, 0 30px 60px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column;
+  }
+
+  /* shared chrome */
+  .top-bar {
+    padding: 14px 20px 0;
+    display: flex; justify-content: space-between; align-items: center;
+    height: 52px; flex-shrink: 0; position: relative; z-index: 10;
+  }
+  .top-btn {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 1px solid #363842; background: rgba(4,4,5,0.5);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center; color: #DADDE3;
+    cursor: pointer;
+  }
+  .v-cta {
+    width: 100%; height: 48px;
+    background: #4500FF; border: none; border-radius: 8px;
+    color: #fff;
+    font: 700 18px/23px 'Albert Sans'; letter-spacing: -0.26px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    cursor: pointer;
+  }
+  .helper {
+    margin-top: 10px; text-align: center;
+    font: 400 12px/16px 'Albert Sans'; color: rgba(255,255,255,0.5);
+  }
+
+  /* date tile (calendar leaf) — now the announcement block */
+  .date-tile {
+    width: 64px; flex-shrink: 0;
+    border-radius: 12px; overflow: hidden;
+    background: #12141E;
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.55);
+  }
+  .date-tile .m {
+    background: #4500FF; color: #fff; text-align: center;
+    font: 700 10px/13px 'Albert Sans'; letter-spacing: 0.24em; text-transform: uppercase;
+    padding: 5px 0;
+  }
+  .date-tile .d {
+    text-align: center;
+    font: 700 24px/28px 'Albert Sans'; letter-spacing: -0.7px;
+    color: #fff; padding: 6px 0 2px;
+  }
+  .date-tile .w {
+    text-align: center;
+    font: 600 9px/12px 'Albert Sans'; letter-spacing: 0.24em;
+    color: #9499A3; text-transform: uppercase;
+    padding: 0 0 8px;
+  }
+
+  /* centered series row (above announcement) */
+  .series-line {
+    text-align: center;
+    font: 600 13px/17px 'Albert Sans'; letter-spacing: -0.09px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* === V1: Crown stack — tile centered above, text below === */
+  .crown-stack {
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+  }
+  .crown-stack .text {
+    text-align: center;
+  }
+  .crown-stack .eyebrow {
+    font: 700 10px/13px 'Albert Sans'; letter-spacing: 0.24em;
+    color: #B0B9FF; text-transform: uppercase;
+  }
+  .crown-stack .title {
+    margin-top: 6px;
+    font: 700 26px/30px 'Albert Sans'; letter-spacing: -0.7px; color: #fff;
+  }
+  .crown-stack .sub {
+    margin-top: 4px;
+    font: 400 13px/17px 'Albert Sans'; color: rgba(255,255,255,0.6);
+  }
+
+  /* === V2: Banner pill — tile + text in one rounded centered plate === */
+  .banner-pill {
+    display: inline-flex; align-items: stretch; gap: 0;
+    background: rgba(18,20,30,0.7);
+    border: 1px solid #363842;
+    border-radius: 14px;
+    padding: 8px 8px 8px 8px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.45);
+  }
+  .banner-pill .date-tile {
+    width: 52px;
+    box-shadow: none;
+  }
+  .banner-pill .date-tile .d { font-size: 20px; line-height: 24px; padding: 4px 0 0; }
+  .banner-pill .date-tile .m { padding: 4px 0; font-size: 9px; line-height: 12px; }
+  .banner-pill .date-tile .w { padding: 0 0 6px; font-size: 8px; line-height: 11px; }
+  .banner-pill .info {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 0 14px 0 12px;
+    text-align: left;
+  }
+  .banner-pill .k {
+    font: 700 9px/12px 'Albert Sans'; letter-spacing: 0.24em;
+    color: #B0B9FF; text-transform: uppercase;
+  }
+  .banner-pill .v {
+    margin-top: 3px;
+    font: 700 18px/22px 'Albert Sans'; letter-spacing: -0.26px; color: #fff;
+  }
+  .banner-pill .meta {
+    margin-top: 2px;
+    font: 400 11px/15px 'Albert Sans'; color: rgba(255,255,255,0.55);
+  }
+
+  /* === V3: Typographic hero — big display date, no tile === */
+  .typo-hero {
+    text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+  .typo-eyebrow {
+    font: 700 10px/13px 'Albert Sans'; letter-spacing: 0.24em;
+    color: #B0B9FF; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .typo-day {
+    font: 700 36px/40px 'Albert Sans'; letter-spacing: -1.12px; color: #fff;
+  }
+  .typo-day .accent { color: #B0B9FF; }
+  .typo-context {
+    font: 500 14px/19px 'Albert Sans'; letter-spacing: -0.13px;
+    color: rgba(255,255,255,0.55);
+  }
+  .typo-context b {
+    color: #fff; font-weight: 700;
+  }
+
+  /* ===== V4: Ticket stub ===== */
+  .v4-frame .top-bar { position: absolute; left: 0; right: 0; top: 0; z-index: 10; }
+  .v4-stage {
+    position: relative; width: 100%; height: 220px;
+    overflow: hidden; flex-shrink: 0;
+    background:
+      radial-gradient(circle at 50% 100%, rgba(255,149,52,0.25), transparent 60%),
+      radial-gradient(circle at 50% 30%, rgba(50,3,242,0.35), transparent 60%),
+      #060009;
+  }
+  .v4-stage::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 60px;
+    background: linear-gradient(180deg, rgba(4,4,5,0) 0%, #040405 90%);
+  }
+  .v4-stars {
+    position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  }
+  .v4-stars span {
+    position: absolute; border-radius: 50%; background: #fff;
+    box-shadow: 0 0 6px rgba(255,255,255,0.7);
+  }
+  .v4-stage-cover {
+    position: absolute; left: 50%; top: 60px; transform: translateX(-50%);
+    width: 100px; height: 150px;
+    border-radius: 10px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+    z-index: 3;
+  }
+  .v4-stage-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .v4-ticket-wrap { padding: 8px 16px 0; position: relative; z-index: 5; }
+  .v4-ticket {
+    position: relative;
+    background: linear-gradient(180deg, #1A1206 0%, #0F0A14 100%);
+    border: 1px solid #663318;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.5);
+  }
+  .v4-ticket-head {
+    background: linear-gradient(90deg, #B43600 0%, #FFC650 50%, #B43600 100%);
+    padding: 8px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid #FFA538;
+  }
+  .v4-ticket-head .l, .v4-ticket-head .r {
+    font: 700 9px/12px 'Albert Sans'; letter-spacing: 0.24em;
+    color: #FFFCDF; text-transform: uppercase;
+  }
+  .v4-ticket-body {
+    display: flex; align-items: stretch;
+    padding: 16px 14px;
+    gap: 14px;
+  }
+  .v4-ticket-left {
+    flex: 1;
+    display: flex; flex-direction: column; justify-content: center; gap: 4px;
+  }
+  .v4-ticket-left .k {
+    font: 600 9px/12px 'Albert Sans'; letter-spacing: 0.24em;
+    color: rgba(255,209,121,0.7); text-transform: uppercase;
+  }
+  .v4-ticket-left .v-day {
+    font: 700 32px/34px 'Albert Sans'; letter-spacing: -1.12px;
+    color: #FDE8C8;
+  }
+  .v4-ticket-left .v-meta {
+    font: 500 12px/16px 'Albert Sans'; color: #D0B49E;
+  }
+  .v4-perf {
+    width: 1px; position: relative; flex-shrink: 0;
+    background: repeating-linear-gradient(180deg, #663318 0px, #663318 4px, transparent 4px, transparent 8px);
+  }
+  .v4-perf::before, .v4-perf::after {
+    content: ""; position: absolute; left: 50%; transform: translateX(-50%);
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #040405;
+    border: 1px solid #663318;
+  }
+  .v4-perf::before { top: -6px; }
+  .v4-perf::after { bottom: -6px; }
+  .v4-ticket-right {
+    width: 84px; flex-shrink: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 2px;
+    text-align: center;
+  }
+  .v4-ticket-right .num {
+    font: 700 36px/38px 'Albert Sans'; letter-spacing: -1.12px;
+    color: #FDE8C8;
+  }
+  .v4-ticket-right .lbl {
+    font: 700 9px/12px 'Albert Sans'; letter-spacing: 0.24em;
+    color: #FFD179; text-transform: uppercase;
+  }
+  .v4-ticket-foot {
+    padding: 10px 14px;
+    border-top: 1px dashed #663318;
+    display: flex; justify-content: space-between; align-items: center;
+    font: 500 11px/15px 'Albert Sans'; color: #D0B49E;
+  }
+  .v4-ticket-foot b { color: #FDE8C8; font-weight: 700; }
+  .v4-cta-block { padding: 16px 20px 0; }
+
+  /* ===== V5: Countdown clock ===== */
+  .v5-frame { padding: 0; }
+  .v5-stage {
+    position: relative; width: 100%; height: 200px;
+    overflow: hidden; flex-shrink: 0;
+    background:
+      radial-gradient(circle at 50% 100%, rgba(50,3,242,0.45), transparent 60%),
+      #060009;
+  }
+  .v5-stage::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 80px;
+    background: linear-gradient(180deg, rgba(4,4,5,0) 0%, #040405 90%);
+  }
+  .v5-stage-cover {
+    position: absolute; left: 50%; top: 60px; transform: translateX(-50%);
+    width: 100px; height: 150px;
+    border-radius: 10px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 16px 30px rgba(0,0,0,0.6);
+    z-index: 3;
+  }
+  .v5-stage-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .v5-stage-cover .badge {
+    position: absolute; top: -8px; right: -8px;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #FF9534; color: #2A1B05;
+    display: flex; align-items: center; justify-content: center;
+    font: 700 14px/18px 'Albert Sans';
+    box-shadow: 0 0 14px rgba(255,149,52,0.55);
+  }
+  .v5-clock-wrap { padding: 24px 20px 0; }
+  .v5-eyebrow {
+    text-align: center; margin-bottom: 14px;
+    font: 700 10px/13px 'Albert Sans'; letter-spacing: 0.24em;
+    color: #B0B9FF; text-transform: uppercase;
+  }
+  .v5-clock {
+    display: flex; justify-content: center; align-items: stretch; gap: 8px;
+  }
+  .v5-cell {
+    flex: 1; max-width: 90px;
+    background: #12141E;
+    border: 1px solid #363842;
+    border-radius: 12px;
+    padding: 12px 0 10px;
+    text-align: center;
+  }
+  .v5-cell .num {
+    font: 700 32px/36px 'Albert Sans'; letter-spacing: -1.12px; color: #fff;
+  }
+  .v5-cell .lbl {
+    margin-top: 4px;
+    font: 600 10px/13px 'Albert Sans'; letter-spacing: 0.24em;
+    color: #9499A3; text-transform: uppercase;
+  }
+  .v5-cell.target {
+    background: #4500FF; border-color: #4500FF;
+  }
+  .v5-cell.target .lbl { color: rgba(255,255,255,0.7); }
+  .v5-meta-row {
+    margin-top: 16px; text-align: center;
+    font: 500 14px/19px 'Albert Sans'; letter-spacing: -0.13px;
+    color: rgba(255,255,255,0.6);
+  }
+  .v5-meta-row b { color: #fff; font-weight: 700; }
+
+  /* ===== V6: Episode roadmap ===== */
+  .v6-frame { padding: 0; }
+  .v6-stage {
+    position: relative; width: 100%; height: 200px;
+    overflow: hidden; flex-shrink: 0;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(50,3,242,0.3), transparent 60%),
+      #060009;
+  }
+  .v6-stage::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 80px;
+    background: linear-gradient(180deg, rgba(4,4,5,0) 0%, #040405 90%);
+  }
+  .v6-stage-cover {
+    position: absolute; left: 50%; top: 50px; transform: translateX(-50%);
+    width: 96px; height: 144px;
+    border-radius: 10px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.6);
+  }
+  .v6-stage-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .v6-roadmap-wrap { padding: 24px 20px 0; }
+  .v6-series-line {
+    text-align: center; margin-bottom: 18px;
+    font: 600 13px/17px 'Albert Sans'; color: rgba(255,255,255,0.6);
+  }
+  .v6-roadmap {
+    display: flex; align-items: stretch; gap: 0;
+  }
+  .v6-step {
+    flex: 1;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    text-align: center;
+  }
+  .v6-step .icon {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: #12141E; border: 1.5px solid #363842;
+    display: flex; align-items: center; justify-content: center;
+    color: #494B57;
+    font: 700 14px/19px 'Albert Sans';
+  }
+  .v6-step.done .icon {
+    background: rgba(54,217,112,0.15);
+    border-color: #36D970;
+    color: #36D970;
+  }
+  .v6-step.target .icon {
+    background: #4500FF;
+    border-color: #4500FF;
+    color: #fff;
+    box-shadow: 0 0 16px rgba(69,0,255,0.5);
+  }
+  .v6-step .ep {
+    font: 700 14px/19px 'Albert Sans'; letter-spacing: -0.13px;
+    color: #DADDE3;
+  }
+  .v6-step.target .ep { color: #fff; }
+  .v6-step .meta {
+    font: 500 11px/15px 'Albert Sans'; color: #9499A3;
+  }
+  .v6-step.target .meta { color: #B0B9FF; font-weight: 700; }
+  .v6-line {
+    flex: 0 0 32px;
+    margin-top: 21px;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, #494B57 0, #494B57 4px, transparent 4px, transparent 8px);
+  }
+  .v6-line.done { background: #36D970; }
+  .v6-headline-block {
+    margin-top: 22px; text-align: center;
+  }
+  .v6-headline {
+    font: 700 22px/26px 'Albert Sans'; letter-spacing: -0.5px; color: #fff;
+  }
+  .v6-headsub {
+    margin-top: 4px;
+    font: 400 13px/17px 'Albert Sans'; color: rgba(255,255,255,0.6);
+  }
+
+  /* ===== V7: Push preview ===== */
+  .v7-frame { padding: 0; }
+  .v7-stage {
+    position: relative; width: 100%; height: 220px;
+    overflow: hidden; flex-shrink: 0;
+    background:
+      radial-gradient(circle at 50% 80%, rgba(50,3,242,0.4), transparent 60%),
+      radial-gradient(circle at 50% 20%, rgba(255,149,52,0.15), transparent 50%),
+      #060009;
+  }
+  .v7-stage::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 60px;
+    background: linear-gradient(180deg, rgba(4,4,5,0) 0%, #040405 90%);
+  }
+  .v7-stage-cover {
+    position: absolute; left: 50%; top: 60px; transform: translateX(-50%);
+    width: 96px; height: 144px;
+    border-radius: 10px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 16px 30px rgba(0,0,0,0.6);
+    z-index: 3;
+  }
+  .v7-stage-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .v7-stage-cover .badge {
+    position: absolute; top: -8px; right: -8px;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #FF9534; color: #2A1B05;
+    display: flex; align-items: center; justify-content: center;
+    font: 700 14px/18px 'Albert Sans';
+    box-shadow: 0 0 14px rgba(255,149,52,0.55);
+  }
+  .v7-headline {
+    margin: 16px 20px 0; text-align: center;
+  }
+  .v7-eyebrow {
+    font: 700 10px/13px 'Albert Sans'; letter-spacing: 0.24em;
+    color: #B0B9FF; text-transform: uppercase;
+  }
+  .v7-title {
+    margin-top: 6px;
+    font: 700 22px/26px 'Albert Sans'; letter-spacing: -0.5px; color: #fff;
+  }
+  .v7-preview-wrap { padding: 14px 14px 0; }
+  .v7-preview-label {
+    text-align: center; margin-bottom: 8px;
+    font: 600 10px/13px 'Albert Sans'; letter-spacing: 0.24em;
+    color: #60636E; text-transform: uppercase;
+  }
+  .v7-push {
+    background: rgba(28,30,40,0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 12px;
+    display: flex; gap: 10px; align-items: flex-start;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.4);
+  }
+  .v7-push-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: linear-gradient(135deg, #4500FF 0%, #6C00FF 100%);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; flex-shrink: 0;
+    font: 700 14px/19px 'Albert Sans';
+  }
+  .v7-push-body { flex: 1; min-width: 0; }
+  .v7-push-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .v7-push-app {
+    font: 600 12px/16px 'Albert Sans'; color: #DADDE3; letter-spacing: -0.06px;
+  }
+  .v7-push-time {
+    font: 400 11px/15px 'Albert Sans'; color: #9499A3;
+  }
+  .v7-push-title {
+    margin-top: 2px;
+    font: 700 13px/17px 'Albert Sans'; letter-spacing: -0.09px; color: #fff;
+  }
+  .v7-push-msg {
+    margin-top: 2px;
+    font: 400 13px/17px 'Albert Sans'; color: #DADDE3;
+  }
+  .v7-arrow {
+    margin: 6px auto;
+    text-align: center; color: #6678FF;
+  }
+  .v7-when {
+    text-align: center;
+    font: 500 13px/17px 'Albert Sans'; color: rgba(255,255,255,0.6);
+  }
+  .v7-when b { color: #fff; font-weight: 700; }
+
+  /* ===== V8: Week strip ===== */
+  .v8-frame { padding: 0; }
+  .v8-stage {
+    position: relative; width: 100%; height: 220px;
+    overflow: hidden; flex-shrink: 0;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(50,3,242,0.35), transparent 60%),
+      #060009;
+  }
+  .v8-stage::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 60px;
+    background: linear-gradient(180deg, rgba(4,4,5,0) 0%, #040405 90%);
+  }
+  .v8-stage-cover {
+    position: absolute; left: 50%; top: 50px; transform: translateX(-50%);
+    width: 110px; height: 165px;
+    border-radius: 12px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 18px 36px rgba(0,0,0,0.6);
+    z-index: 3;
+  }
+  .v8-stage-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .v8-stage-cover .badge {
+    position: absolute; top: -10px; right: -10px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: #FF9534; color: #2A1B05;
+    display: flex; align-items: center; justify-content: center;
+    font: 700 16px/20px 'Albert Sans';
+    box-shadow: 0 0 14px rgba(255,149,52,0.55);
+  }
+  .v8-headline {
+    margin: 14px 20px 0; text-align: center;
+  }
+  .v8-series {
+    font: 600 13px/17px 'Albert Sans'; color: rgba(255,255,255,0.6);
+  }
+  .v8-title {
+    margin-top: 4px;
+    font: 700 22px/26px 'Albert Sans'; letter-spacing: -0.5px; color: #fff;
+  }
+  .v8-week-wrap { margin: 16px 16px 0; }
+  .v8-week-label {
+    margin-bottom: 8px; padding: 0 4px;
+    display: flex; justify-content: space-between; align-items: baseline;
+    font: 600 10px/13px 'Albert Sans'; letter-spacing: 0.24em;
+    color: #9499A3; text-transform: uppercase;
+  }
+  .v8-week {
+    display: flex; gap: 4px; justify-content: space-between;
+  }
+  .v8-day {
+    flex: 1;
+    background: #12141E;
+    border: 1px solid #363842;
+    border-radius: 8px;
+    padding: 8px 0;
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+  }
+  .v8-day .w {
+    font: 600 9px/12px 'Albert Sans'; letter-spacing: 0.18em;
+    color: #60636E; text-transform: uppercase;
+  }
+  .v8-day .n {
+    font: 700 16px/20px 'Albert Sans'; letter-spacing: -0.21px; color: #DADDE3;
+  }
+  .v8-day.passed .n { color: #494B57; text-decoration: line-through; }
+  .v8-day.passed .w { color: #494B57; }
+  .v8-day.target {
+    background: #4500FF; border-color: #4500FF;
+    box-shadow: 0 6px 16px rgba(69,0,255,0.45);
+  }
+  .v8-day.target .w { color: rgba(255,255,255,0.75); }
+  .v8-day.target .n { color: #fff; }
+
+  /* compact recs at bottom */
+  .rec-section { flex-shrink: 0; padding-bottom: 16px; }
+  .rec-header {
+    padding: 0 20px; display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;
+  }
+  .rec-title { font: 700 15px/20px 'Albert Sans'; letter-spacing: -0.19px; color: #fff; }
+  .rec-link { font: 500 13px/17px 'Albert Sans'; color: #6678FF; }
+  .rec-scroll {
+    display: flex; gap: 8px; padding: 0 20px;
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .rec-scroll::-webkit-scrollbar { display: none; }
+  .rec-card { flex: 0 0 auto; width: 80px; }
+  .rec-card img {
+    width: 80px; height: 120px; object-fit: cover;
+    border-radius: 8px; display: block;
+    border: 1px solid #20222C;
+  }
+  .rec-card .name {
+    margin-top: 6px;
+    font: 600 12px/16px 'Albert Sans'; color: #fff; letter-spacing: -0.06px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .rec-card .meta {
+    font: 400 11px/15px 'Albert Sans'; color: #9499A3;
+  }
+
+  /* shared cover composition */
+  .cover-wrap {
+    position: relative;
+    width: 156px; height: 234px;
+    margin: 0 auto;
+  }
+  .cover-wrap::before {
+    content: ""; position: absolute; inset: -32px;
+    background: radial-gradient(closest-side, rgba(120,80,255,0.55), transparent 70%);
+    filter: blur(10px); z-index: 0;
+  }
+  .cover-img {
+    position: relative; z-index: 1;
+    width: 100%; height: 100%;
+    border-radius: 14px; object-fit: cover; display: block;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 24px 44px rgba(0,0,0,0.7);
+  }
+  .cover-badge {
+    position: absolute; z-index: 3;
+    top: -10px; right: -10px;
+    width: 38px; height: 38px; border-radius: 50%;
+    background: #FF9534; color: #2A1B05;
+    display: flex; align-items: center; justify-content: center;
+    font: 700 18px/22px 'Albert Sans';
+    box-shadow: 0 0 18px rgba(255,149,52,0.65);
+  }
+  .cover-date {
+    position: absolute; z-index: 3;
+    bottom: -16px; left: -16px;
+  }
+
+  /* ===================== V1 — Tilted poster wall ===================== */
+  .v1-stage {
+    position: relative;
+    width: 100%; height: 360px;
+    overflow: hidden; flex-shrink: 0;
+    margin-top: -52px;
+  }
+  .v1-wall {
+    position: absolute; inset: -60px -40px;
+    transform: rotate(-11deg);
+    display: grid; grid-template-columns: repeat(7, 60px);
+    gap: 4px; justify-content: center;
+    opacity: 0.45;
+  }
+  .v1-wall img {
+    width: 60px; height: 92px; border-radius: 6px;
+    object-fit: cover; display: block;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .v1-wash-warm { position: absolute; inset: 0; background: #F77629; opacity: 0.10; pointer-events: none; }
+  .v1-wash-blue {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, #100A86 0%, rgba(44,1,87,0) 100%);
+    opacity: 0.55; pointer-events: none;
+  }
+  .v1-wash-violet {
+    position: absolute; inset: 0;
+    background: #2509BF; opacity: 0.35; mix-blend-mode: multiply; pointer-events: none;
+  }
+  .v1-blur-disc {
+    position: absolute; left: 50%; top: 56%;
+    width: 240px; height: 240px;
+    background: #3203F2;
+    border-radius: 50%; filter: blur(96px);
+    transform: translate(-50%, -50%); pointer-events: none;
+  }
+  .v1-fade-bottom {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 130px;
+    background: linear-gradient(180deg, rgba(4,4,5,0) 0%, #040405 90%);
+    pointer-events: none;
+  }
+  .v1-stars { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+  .v1-stars span {
+    position: absolute; border-radius: 50%; background: #fff;
+    box-shadow: 0 0 6px rgba(255,255,255,0.7);
+  }
+  .v1-cover-pos {
+    position: absolute; left: 50%; top: 80px;
+    transform: translateX(-50%); z-index: 4;
+  }
+
+  /* ===================== V2 — Offer strip + glow ===================== */
+  .v2-card-wrap { padding: 8px 16px 0; flex-shrink: 0; }
+  .v2-card {
+    position: relative;
+    border-radius: 20px; overflow: hidden;
+    background: #0A0613;
+    border: 1px solid #2A1B40;
+    box-shadow: 0 0 40px rgba(25,8,133,0.25);
+  }
+  .v2-strip {
+    position: relative; height: 38px;
+    background: linear-gradient(90deg, #B43600 0%, #FFC650 50%, #B43600 100%);
+    border-bottom: 1px solid #FFA538;
+    box-shadow: 0 2px 10px rgba(180,54,0,0.55);
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    overflow: hidden;
+  }
+  .v2-strip::before, .v2-strip::after {
+    content: ""; position: absolute; top: 50%; transform: translateY(-50%);
+    width: 80px; height: 80px; border-radius: 50%;
+    background: rgba(255,252,223,0.25); filter: blur(20px);
+  }
+  .v2-strip::before { left: -20px; }
+  .v2-strip::after { right: -20px; }
+  .v2-strip-text {
+    position: relative; z-index: 2;
+    font: 700 11px/15px 'Albert Sans'; letter-spacing: 0.24em;
+    color: #FFFCDF; text-transform: uppercase;
+  }
+  .v2-strip-icon { position: relative; z-index: 2; color: #FFFCDF; }
+  .v2-body {
+    position: relative;
+    padding: 32px 20px 20px;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(50,3,242,0.4), transparent 60%),
+      radial-gradient(circle at 90% 100%, rgba(255,118,41,0.12), transparent 50%),
+      #0A0613;
+    overflow: hidden;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .v2-body::before {
+    content: ""; position: absolute;
+    width: 240px; height: 90px;
+    left: 50%; top: -30px; transform: translateX(-50%);
+    background: #3203F2; opacity: 0.5;
+    filter: blur(80px); pointer-events: none;
+  }
+  .v2-stars { position: absolute; inset: 0; pointer-events: none; }
+  .v2-stars span {
+    position: absolute; border-radius: 50%; background: #fff;
+    box-shadow: 0 0 6px rgba(255,255,255,0.7);
+  }
+  .v2-cover-wrap {
+    position: relative;
+    width: 124px; height: 186px;
+    z-index: 2;
+  }
+  .v2-cover-wrap::before {
+    content: ""; position: absolute; inset: -24px;
+    background: radial-gradient(closest-side, rgba(120,80,255,0.5), transparent 70%);
+    filter: blur(8px); z-index: 0;
+  }
+  .v2-cover {
+    position: relative; z-index: 1;
+    width: 100%; height: 100%;
+    border-radius: 12px; object-fit: cover; display: block;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.6);
+  }
+  .v2-cover-badge {
+    position: absolute; z-index: 3;
+    top: -8px; right: -8px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: #FF9534; color: #2A1B05;
+    display: flex; align-items: center; justify-content: center;
+    font: 700 16px/20px 'Albert Sans';
+    box-shadow: 0 0 14px rgba(255,149,52,0.55);
+  }
+  .v2-cover-date {
+    position: absolute; z-index: 3;
+    bottom: -14px; left: -14px;
+  }
+  .v2-text {
+    position: relative; z-index: 2;
+    margin-top: 24px; text-align: center;
+  }
+  .v2-name {
+    font: 600 13px/17px 'Albert Sans'; color: rgba(255,255,255,0.7);
+  }
+  .v2-title {
+    margin-top: 4px;
+    font: 700 24px/29px 'Albert Sans'; letter-spacing: -0.7px; color: #fff;
+  }
+  .v2-sub {
+    margin-top: 6px;
+    font: 400 12px/16px 'Albert Sans'; color: rgba(255,255,255,0.55);
+  }
+  .v2-cta-wrap { width: 100%; margin-top: 18px; position: relative; z-index: 2; }
+  .v2-foot {
+    margin-top: 8px; text-align: center;
+    font: 400 11px/15px 'Albert Sans'; color: rgba(255,255,255,0.5);
+    position: relative; z-index: 2;
+  }
+
+  /* ===================== V3 — Atmospheric layers ===================== */
+  .v3-stage {
+    position: relative;
+    width: 100%; height: 380px;
+    overflow: hidden; flex-shrink: 0;
+    margin-top: -52px;
+  }
+  .v3-base { position: absolute; inset: 0; background: #060009; }
+  .v3-warm-wash { position: absolute; inset: 0; background: #F77629; opacity: 0.12; pointer-events: none; }
+  .v3-blue-grad {
+    position: absolute; left: -50px; right: -50px; top: -50px; height: 380px;
+    background: linear-gradient(180deg, #100A86 0%, rgba(44,1,87,0) 100%);
+    opacity: 0.65;
+  }
+  .v3-violet-overlay {
+    position: absolute; inset: 0;
+    background: #2509BF; opacity: 0.35; mix-blend-mode: multiply;
+  }
+  .v3-disc {
+    position: absolute; left: 50%; top: 45%;
+    width: 240px; height: 240px;
+    background: #3203F2; border-radius: 50%;
+    filter: blur(96px); transform: translate(-50%, -50%);
+  }
+  .v3-glow-bottom {
+    position: absolute; left: 50%; bottom: 30px;
+    width: 200px; height: 50px;
+    background: #1F0C99; border-radius: 50%;
+    filter: blur(60px); transform: translateX(-50%);
+  }
+  .v3-grid-stripe {
+    position: absolute; left: -40px; right: -40px; top: 80px; height: 100px;
+    overflow: hidden; transform: rotate(-11deg); opacity: 0.32;
+    display: flex; gap: 6px;
+  }
+  .v3-grid-stripe img {
+    width: 56px; height: 86px; border-radius: 6px;
+    object-fit: cover;
+    border: 1px solid rgba(255,255,255,0.08);
+    flex-shrink: 0;
+  }
+  .v3-fade-top {
+    position: absolute; left: 0; right: 0; top: 0; height: 100px;
+    background: linear-gradient(180deg, #040405 0%, rgba(4,4,5,0) 100%);
+    pointer-events: none;
+  }
+  .v3-fade-bottom {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 140px;
+    background: linear-gradient(180deg, rgba(4,4,5,0) 0%, #040405 85%);
+    pointer-events: none;
+  }
+  .v3-stars { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+  .v3-stars span {
+    position: absolute; border-radius: 50%; background: #fff;
+    box-shadow: 0 0 8px rgba(255,255,255,0.85);
+  }
+  .v3-tag-floating {
+    position: absolute; left: 50%; top: 64px;
+    transform: translateX(-50%);
+    z-index: 4;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 12px; border-radius: 999px;
+    background: rgba(4,4,5,0.55);
+    border: 1px solid rgba(102,120,255,0.5);
+    backdrop-filter: blur(12px);
+    font: 700 9px/12px 'Albert Sans'; letter-spacing: 0.24em;
+    color: #B0B9FF; text-transform: uppercase;
+  }
+  .v3-tag-floating .dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: #6678FF; box-shadow: 0 0 6px #6678FF;
+  }
+  .v3-cover-pos {
+    position: absolute; left: 50%; top: 100px;
+    transform: translateX(-50%); z-index: 4;
+  }
+
+  /* shared "below stage" CTA block — vertical rhythm */
+  .below-stage {
+    flex: 1;
+    display: flex; flex-direction: column;
+    padding: 20px 20px 0;
+  }
+  .below-stage .center-block { padding: 0; }
+  .cta-block { margin-top: 20px; }
+</style>
+</head>
+<body>
+<div class="row">
+
+  <!-- =========== VARIANT 1 =========== -->
+  <div class="col">
+    <div class="label">Variant 1 · Tilted poster wall</div>
+    <div class="frame">
+      <div class="top-bar">
+        <button class="top-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="top-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div class="v1-stage">
+        <div class="v1-wall">
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/10.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/11.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/12.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/13.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/14.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/15.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/16.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/17.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/18.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/10.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/12.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/14.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/16.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/19.jpg" />
+        </div>
+        <div class="v1-wash-warm"></div>
+        <div class="v1-wash-blue"></div>
+        <div class="v1-wash-violet"></div>
+        <div class="v1-blur-disc"></div>
+        <div class="v1-stars">
+          <span style="left:8%; top:18%; width:3px; height:3px;"></span>
+          <span style="left:88%; top:14%; width:5px; height:5px;"></span>
+          <span style="left:14%; top:74%; width:4px; height:4px;"></span>
+          <span style="left:82%; top:62%; width:3px; height:3px;"></span>
+          <span style="left:50%; top:8%; width:4px; height:4px; opacity:0.7;"></span>
+        </div>
+        <div class="v1-cover-pos">
+          <div class="cover-wrap">
+            <img class="cover-img" src="https://alex03292303.github.io/drama-style-plugin/covers/19.jpg" alt="cover" />
+            <div class="cover-badge">2</div>
+          </div>
+        </div>
+        <div class="v1-fade-bottom"></div>
+      </div>
+
+      <div class="below-stage">
+        <div style="display:flex; flex-direction:column; align-items:center; gap:16px;">
+          <div class="series-line">You finished part 1 · Crimson Vow</div>
+          <div class="crown-stack">
+            <div class="date-tile">
+              <div class="m">May</div>
+              <div class="d">5</div>
+              <div class="w">Mon</div>
+            </div>
+            <div class="text">
+              <div class="eyebrow">Part 2 drops</div>
+              <div class="title">In 7 days</div>
+              <div class="sub">12 new episodes</div>
+            </div>
+          </div>
+        </div>
+        <div class="cta-block">
+          <button class="v-cta">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            Remind me May 5
+          </button>
+          <div class="helper">We'll send a push and email</div>
+        </div>
+      </div>
+
+      <div class="rec-section" style="margin-top: auto;">
+        <div class="rec-header">
+          <div class="rec-title">More to watch</div>
+          <a class="rec-link">See all</a>
+        </div>
+        <div class="rec-scroll">
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/10.jpg" /><div class="name">Bound by Fate</div><div class="meta">24 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/12.jpg" /><div class="name">Silent Vow</div><div class="meta">18 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/14.jpg" /><div class="name">Wolf's Promise</div><div class="meta">28 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/17.jpg" /><div class="name">Heir Apparent</div><div class="meta">30 ep</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========== VARIANT 2 =========== -->
+  <div class="col">
+    <div class="label">Variant 2 · Offer strip card</div>
+    <div class="frame">
+      <div class="top-bar">
+        <button class="top-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="top-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="4" cy="12" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="20" cy="12" r="1.5"></circle></svg>
+        </button>
+      </div>
+
+      <div class="v2-card-wrap">
+        <div class="v2-card">
+          <div class="v2-strip">
+            <svg class="v2-strip-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span class="v2-strip-text">New episodes in 7 days</span>
+          </div>
+          <div class="v2-body">
+            <div class="v2-stars">
+              <span style="left:8%; top:18%; width:3px; height:3px;"></span>
+              <span style="left:88%; top:24%; width:4px; height:4px;"></span>
+              <span style="left:18%; top:78%; width:3px; height:3px;"></span>
+              <span style="left:82%; top:74%; width:5px; height:5px;"></span>
+            </div>
+            <div class="v2-cover-wrap">
+              <img class="v2-cover" src="https://alex03292303.github.io/drama-style-plugin/covers/19.jpg" alt="cover" />
+              <div class="v2-cover-badge">2</div>
+            </div>
+            <div class="v2-text" style="display:flex; flex-direction:column; align-items:center; gap:14px;">
+              <div class="series-line">You finished part 1 · Crimson Vow</div>
+              <div class="banner-pill">
+                <div class="date-tile">
+                  <div class="m">May</div>
+                  <div class="d">5</div>
+                  <div class="w">Mon</div>
+                </div>
+                <div class="info">
+                  <div class="k">Part 2 drops in</div>
+                  <div class="v">7 days</div>
+                  <div class="meta">12 new episodes</div>
+                </div>
+              </div>
+            </div>
+            <div class="v2-cta-wrap" style="margin-top: 18px;">
+              <button class="v-cta">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                Remind me May 5
+              </button>
+            </div>
+            <div class="v2-foot">We'll send a push and email</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rec-section" style="margin-top: auto;">
+        <div class="rec-header">
+          <div class="rec-title">While you wait</div>
+          <a class="rec-link">See all</a>
+        </div>
+        <div class="rec-scroll">
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/10.jpg" /><div class="name">Bound by Fate</div><div class="meta">24 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/12.jpg" /><div class="name">Silent Vow</div><div class="meta">18 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/14.jpg" /><div class="name">Wolf's Promise</div><div class="meta">28 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/17.jpg" /><div class="name">Heir Apparent</div><div class="meta">30 ep</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========== VARIANT 3 =========== -->
+  <div class="col">
+    <div class="label">Variant 3 · Atmospheric layers</div>
+    <div class="frame">
+      <div class="top-bar">
+        <button class="top-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="top-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="4" cy="12" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="20" cy="12" r="1.5"></circle></svg>
+        </button>
+      </div>
+
+      <div class="v3-stage">
+        <div class="v3-base"></div>
+        <div class="v3-warm-wash"></div>
+        <div class="v3-blue-grad"></div>
+        <div class="v3-grid-stripe">
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/10.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/11.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/12.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/13.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/14.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/15.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/16.jpg" />
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/17.jpg" />
+        </div>
+        <div class="v3-violet-overlay"></div>
+        <div class="v3-disc"></div>
+        <div class="v3-glow-bottom"></div>
+        <div class="v3-fade-top"></div>
+        <div class="v3-stars">
+          <span style="left:6%; top:16%; width:3px; height:3px;"></span>
+          <span style="left:18%; top:8%; width:5px; height:5px;"></span>
+          <span style="left:88%; top:12%; width:4px; height:4px;"></span>
+          <span style="left:74%; top:6%; width:3px; height:3px;"></span>
+          <span style="left:8%; top:46%; width:3px; height:3px;"></span>
+          <span style="left:92%; top:42%; width:4px; height:4px;"></span>
+          <span style="left:14%; top:78%; width:5px; height:5px;"></span>
+          <span style="left:86%; top:78%; width:3px; height:3px;"></span>
+        </div>
+        <div class="v3-tag-floating"><span class="dot"></span>You finished part 1</div>
+        <div class="v3-cover-pos">
+          <div class="cover-wrap">
+            <img class="cover-img" src="https://alex03292303.github.io/drama-style-plugin/covers/19.jpg" alt="cover" />
+            <div class="cover-badge">2</div>
+          </div>
+        </div>
+        <div class="v3-fade-bottom"></div>
+      </div>
+
+      <div class="below-stage">
+        <div style="display:flex; flex-direction:column; align-items:center; gap:14px;">
+          <div class="series-line">You finished part 1 · Crimson Vow</div>
+          <div class="typo-hero">
+            <div class="typo-eyebrow">Part 2 drops</div>
+            <div class="typo-day"><span class="accent">Mon ·</span> May 5</div>
+            <div class="typo-context">In <b>7 days</b> · 12 new episodes</div>
+          </div>
+        </div>
+        <div class="cta-block">
+          <button class="v-cta">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            Remind me May 5
+          </button>
+          <div class="helper">We'll send a push and email</div>
+        </div>
+      </div>
+
+      <div class="rec-section" style="margin-top: auto;">
+        <div class="rec-header">
+          <div class="rec-title">More to watch</div>
+          <a class="rec-link">See all</a>
+        </div>
+        <div class="rec-scroll">
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/10.jpg" /><div class="name">Bound by Fate</div><div class="meta">24 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/12.jpg" /><div class="name">Silent Vow</div><div class="meta">18 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/14.jpg" /><div class="name">Wolf's Promise</div><div class="meta">28 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/17.jpg" /><div class="name">Heir Apparent</div><div class="meta">30 ep</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========== VARIANT 4 — Ticket stub =========== -->
+  <div class="col">
+    <div class="label">Variant 4 · Ticket stub</div>
+    <div class="frame v4-frame">
+      <div class="top-bar">
+        <button class="top-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+        <button class="top-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="4" cy="12" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="20" cy="12" r="1.5"></circle></svg></button>
+      </div>
+      <div class="v4-stage">
+        <div class="v4-stars">
+          <span style="left:10%; top:14%; width:3px; height:3px;"></span>
+          <span style="left:88%; top:24%; width:5px; height:5px;"></span>
+          <span style="left:18%; top:74%; width:3px; height:3px;"></span>
+          <span style="left:82%; top:64%; width:4px; height:4px;"></span>
+        </div>
+        <div class="v4-stage-cover"><img src="https://alex03292303.github.io/drama-style-plugin/covers/19.jpg" /></div>
+      </div>
+      <div class="v4-ticket-wrap">
+        <div class="v4-ticket">
+          <div class="v4-ticket-head">
+            <span class="l">Admit one</span>
+            <span class="r">Crimson Vow · Part 2</span>
+          </div>
+          <div class="v4-ticket-body">
+            <div class="v4-ticket-left">
+              <div class="k">Premiere</div>
+              <div class="v-day">Mon, May 5</div>
+              <div class="v-meta">12 new episodes</div>
+            </div>
+            <div class="v4-perf"></div>
+            <div class="v4-ticket-right">
+              <div class="num">7</div>
+              <div class="lbl">Days left</div>
+            </div>
+          </div>
+          <div class="v4-ticket-foot">
+            <span>You finished part 1</span>
+            <b>No. 002</b>
+          </div>
+        </div>
+      </div>
+      <div class="v4-cta-block">
+        <button class="v-cta">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          Remind me May 5
+        </button>
+        <div class="helper">We'll send a push and email</div>
+      </div>
+      <div class="rec-section" style="margin-top: auto;">
+        <div class="rec-header"><div class="rec-title">While you wait</div><a class="rec-link">See all</a></div>
+        <div class="rec-scroll">
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/10.jpg" /><div class="name">Bound by Fate</div><div class="meta">24 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/12.jpg" /><div class="name">Silent Vow</div><div class="meta">18 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/14.jpg" /><div class="name">Wolf's Promise</div><div class="meta">28 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/17.jpg" /><div class="name">Heir Apparent</div><div class="meta">30 ep</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========== VARIANT 5 — Countdown clock =========== -->
+  <div class="col">
+    <div class="label">Variant 5 · Countdown clock</div>
+    <div class="frame v5-frame">
+      <div class="top-bar">
+        <button class="top-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+        <button class="top-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="4" cy="12" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="20" cy="12" r="1.5"></circle></svg></button>
+      </div>
+      <div class="v5-stage">
+        <div class="v5-stage-cover">
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/19.jpg" />
+          <div class="badge">2</div>
+        </div>
+      </div>
+      <div class="v5-clock-wrap">
+        <div class="v5-eyebrow">Crimson Vow · Part 2 launches in</div>
+        <div class="v5-clock">
+          <div class="v5-cell target"><div class="num">07</div><div class="lbl">Days</div></div>
+          <div class="v5-cell"><div class="num">00</div><div class="lbl">Hours</div></div>
+          <div class="v5-cell"><div class="num">00</div><div class="lbl">Min</div></div>
+        </div>
+        <div class="v5-meta-row">Drops <b>Mon, May 5</b> · 12 new episodes</div>
+      </div>
+      <div style="padding: 20px 20px 0;">
+        <button class="v-cta">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          Remind me May 5
+        </button>
+        <div class="helper">We'll send a push and email</div>
+      </div>
+      <div class="rec-section" style="margin-top: auto;">
+        <div class="rec-header"><div class="rec-title">More to watch</div><a class="rec-link">See all</a></div>
+        <div class="rec-scroll">
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/10.jpg" /><div class="name">Bound by Fate</div><div class="meta">24 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/12.jpg" /><div class="name">Silent Vow</div><div class="meta">18 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/14.jpg" /><div class="name">Wolf's Promise</div><div class="meta">28 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/17.jpg" /><div class="name">Heir Apparent</div><div class="meta">30 ep</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========== VARIANT 6 — Episode roadmap =========== -->
+  <div class="col">
+    <div class="label">Variant 6 · Episode roadmap</div>
+    <div class="frame v6-frame">
+      <div class="top-bar">
+        <button class="top-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+        <button class="top-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="4" cy="12" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="20" cy="12" r="1.5"></circle></svg></button>
+      </div>
+      <div class="v6-stage">
+        <div class="v6-stage-cover"><img src="https://alex03292303.github.io/drama-style-plugin/covers/19.jpg" /></div>
+      </div>
+      <div class="v6-roadmap-wrap">
+        <div class="v6-series-line">Crimson Vow · You finished part 1</div>
+        <div class="v6-roadmap">
+          <div class="v6-step done">
+            <div class="icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div class="ep">Ep 12</div>
+            <div class="meta">Finale</div>
+          </div>
+          <div class="v6-line done"></div>
+          <div class="v6-step target">
+            <div class="icon">13</div>
+            <div class="ep">Ep 13</div>
+            <div class="meta">Mon, May 5</div>
+          </div>
+          <div class="v6-line"></div>
+          <div class="v6-step">
+            <div class="icon">…</div>
+            <div class="ep">Ep 14+</div>
+            <div class="meta">Weekly</div>
+          </div>
+        </div>
+        <div class="v6-headline-block">
+          <div class="v6-headline">Part 2 in 7 days</div>
+          <div class="v6-headsub">12 new episodes · Mon, May 5</div>
+        </div>
+      </div>
+      <div style="padding: 20px 20px 0;">
+        <button class="v-cta">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          Remind me May 5
+        </button>
+        <div class="helper">We'll send a push and email</div>
+      </div>
+      <div class="rec-section" style="margin-top: auto;">
+        <div class="rec-header"><div class="rec-title">More to watch</div><a class="rec-link">See all</a></div>
+        <div class="rec-scroll">
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/10.jpg" /><div class="name">Bound by Fate</div><div class="meta">24 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/12.jpg" /><div class="name">Silent Vow</div><div class="meta">18 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/14.jpg" /><div class="name">Wolf's Promise</div><div class="meta">28 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/17.jpg" /><div class="name">Heir Apparent</div><div class="meta">30 ep</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========== VARIANT 7 — Push preview =========== -->
+  <div class="col">
+    <div class="label">Variant 7 · Push preview</div>
+    <div class="frame v7-frame">
+      <div class="top-bar">
+        <button class="top-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+        <button class="top-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="4" cy="12" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="20" cy="12" r="1.5"></circle></svg></button>
+      </div>
+      <div class="v7-stage">
+        <div class="v7-stage-cover">
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/19.jpg" />
+          <div class="badge">2</div>
+        </div>
+      </div>
+      <div class="v7-headline">
+        <div class="v7-eyebrow">You finished part 1</div>
+        <div class="v7-title">Part 2 drops in 7 days</div>
+      </div>
+      <div class="v7-preview-wrap">
+        <div class="v7-preview-label">Here's what you'll get</div>
+        <div class="v7-push">
+          <div class="v7-push-icon">M</div>
+          <div class="v7-push-body">
+            <div class="v7-push-row">
+              <span class="v7-push-app">My Drama</span>
+              <span class="v7-push-time">9:00 AM · May 5</span>
+            </div>
+            <div class="v7-push-title">Crimson Vow Part 2 is live</div>
+            <div class="v7-push-msg">12 new episodes ready. Tap to watch.</div>
+          </div>
+        </div>
+        <div class="v7-arrow">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+        </div>
+        <div class="v7-when">Delivered <b>Mon, May 5</b> · push and email</div>
+      </div>
+      <div style="padding: 18px 20px 0;">
+        <button class="v-cta">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          Turn it on
+        </button>
+        <div class="helper">Cancel anytime in settings</div>
+      </div>
+      <div class="rec-section" style="margin-top: auto;">
+        <div class="rec-header"><div class="rec-title">More to watch</div><a class="rec-link">See all</a></div>
+        <div class="rec-scroll">
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/10.jpg" /><div class="name">Bound by Fate</div><div class="meta">24 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/12.jpg" /><div class="name">Silent Vow</div><div class="meta">18 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/14.jpg" /><div class="name">Wolf's Promise</div><div class="meta">28 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/17.jpg" /><div class="name">Heir Apparent</div><div class="meta">30 ep</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========== VARIANT 8 — Week strip =========== -->
+  <div class="col">
+    <div class="label">Variant 8 · Week strip</div>
+    <div class="frame v8-frame">
+      <div class="top-bar">
+        <button class="top-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+        <button class="top-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="4" cy="12" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="20" cy="12" r="1.5"></circle></svg></button>
+      </div>
+      <div class="v8-stage">
+        <div class="v8-stage-cover">
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/19.jpg" />
+          <div class="badge">2</div>
+        </div>
+      </div>
+      <div class="v8-headline">
+        <div class="v8-series">You finished part 1 · Crimson Vow</div>
+        <div class="v8-title">Part 2 drops Mon, May 5</div>
+      </div>
+      <div class="v8-week-wrap">
+        <div class="v8-week-label">
+          <span>This week</span>
+          <span style="color:#B0B9FF;">5 days left</span>
+        </div>
+        <div class="v8-week">
+          <div class="v8-day passed"><div class="w">Tue</div><div class="n">29</div></div>
+          <div class="v8-day passed"><div class="w">Wed</div><div class="n">30</div></div>
+          <div class="v8-day"><div class="w">Thu</div><div class="n">1</div></div>
+          <div class="v8-day"><div class="w">Fri</div><div class="n">2</div></div>
+          <div class="v8-day"><div class="w">Sat</div><div class="n">3</div></div>
+          <div class="v8-day"><div class="w">Sun</div><div class="n">4</div></div>
+          <div class="v8-day target"><div class="w">Mon</div><div class="n">5</div></div>
+        </div>
+      </div>
+      <div style="padding: 20px 20px 0;">
+        <button class="v-cta">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          Remind me May 5
+        </button>
+        <div class="helper">We'll send a push and email</div>
+      </div>
+      <div class="rec-section" style="margin-top: auto;">
+        <div class="rec-header"><div class="rec-title">More to watch</div><a class="rec-link">See all</a></div>
+        <div class="rec-scroll">
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/10.jpg" /><div class="name">Bound by Fate</div><div class="meta">24 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/12.jpg" /><div class="name">Silent Vow</div><div class="meta">18 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/14.jpg" /><div class="name">Wolf's Promise</div><div class="meta">28 ep</div></div>
+          <div class="rec-card"><img src="https://alex03292303.github.io/drama-style-plugin/covers/17.jpg" /><div class="name">Heir Apparent</div><div class="meta">30 ep</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Part 2 — Variant 2 (Modal sheet)</title>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #040405; font-family: 'Albert Sans', sans-serif; display: flex; justify-content: center; }
+  .frame {
+    width: 375px;
+    min-height: 812px;
+    background: #040405;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Backdrop dimmed area to suggest sheet on top of content */
+  .backdrop {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 50% 12%, rgba(69,0,255,0.08), transparent 60%),
+      #040405;
+  }
+  /* Sheet */
+  .sheet {
+    position: relative;
+    margin-top: 56px;
+    border-radius: 24px 24px 0 0;
+    background: #12141E;
+    overflow: hidden;
+    min-height: 756px;
+    border-top: 1px solid #363842;
+  }
+  /* Violet gradient head — the only sanctioned vertical gradient */
+  .sheet-head {
+    position: relative;
+    height: 360px;
+    background: linear-gradient(180deg, #4500FF 0%, #2A0FB0 25%, #1C1E28 65%, #12141E 100%);
+    overflow: hidden;
+  }
+  .close {
+    position: absolute;
+    top: 16px; right: 16px;
+    width: 32px; height: 32px;
+    color: #DADDE3;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    z-index: 3;
+  }
+  .grabber {
+    position: absolute;
+    top: 8px; left: 50%;
+    transform: translateX(-50%);
+    width: 36px; height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.4);
+  }
+  /* Cover floats up, breaking sheet edge */
+  .cover-wrap {
+    position: absolute;
+    top: 36px; left: 50%;
+    transform: translateX(-50%);
+    width: 140px; height: 210px;
+  }
+  .cover-wrap::before {
+    content: "";
+    position: absolute;
+    inset: -30px;
+    background: radial-gradient(closest-side, rgba(120,80,255,0.5), transparent 70%);
+    filter: blur(8px);
+    z-index: 0;
+  }
+  .cover-wrap img {
+    position: relative;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
+    z-index: 1;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .badge {
+    position: absolute;
+    bottom: -10px; left: 50%;
+    transform: translateX(-50%);
+    background: #FF9534;
+    color: #040405;
+    font: 700 11px/15px 'Albert Sans';
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 6px;
+    z-index: 2;
+    white-space: nowrap;
+  }
+  /* Content under head */
+  .head-text {
+    position: absolute;
+    left: 20px; right: 20px; bottom: 24px;
+    text-align: center;
+  }
+  .eyebrow {
+    font: 700 10px/13px 'Albert Sans';
+    color: #DADDE3;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .title {
+    font: 700 24px/29px 'Albert Sans';
+    letter-spacing: -0.7px;
+    color: #fff;
+  }
+  .subtitle {
+    margin-top: 8px;
+    font: 400 14px/19px 'Albert Sans';
+    color: #DADDE3;
+    letter-spacing: -0.13px;
+  }
+  /* Body */
+  .body {
+    padding: 20px 20px 24px;
+  }
+  .cta-primary {
+    width: 100%;
+    height: 48px;
+    background: #4500FF;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font: 700 18px/23px 'Albert Sans';
+    letter-spacing: -0.26px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  .cta-secondary {
+    margin-top: 10px;
+    width: 100%;
+    height: 48px;
+    background: transparent;
+    border: 1px solid #9499A3;
+    border-radius: 8px;
+    color: #DADDE3;
+    font: 700 18px/23px 'Albert Sans';
+    letter-spacing: -0.26px;
+    cursor: pointer;
+  }
+  /* Recs */
+  .rec-section { margin-top: 24px; }
+  .rec-header {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 14px;
+  }
+  .rec-title {
+    font: 700 18px/23px 'Albert Sans';
+    letter-spacing: -0.26px;
+    color: #fff;
+  }
+  .rec-link {
+    font: 500 14px/19px 'Albert Sans';
+    color: #6678FF;
+  }
+  .rec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .rec-card img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+    border: 1px solid #20222C;
+  }
+  .rec-card .name {
+    margin-top: 6px;
+    font: 600 13px/17px 'Albert Sans';
+    color: #fff;
+    letter-spacing: -0.09px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .rec-card .meta {
+    font: 400 11px/15px 'Albert Sans';
+    color: #9499A3;
+  }
+</style>
+</head>
+<body>
+  <div class="frame">
+    <div class="backdrop"></div>
+    <div class="sheet">
+      <div class="sheet-head">
+        <div class="grabber"></div>
+        <div class="close">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </div>
+        <div class="cover-wrap">
+          <img src="https://alex03292303.github.io/drama-style-plugin/covers/15.jpg" alt="cover" />
+          <div class="badge">Part 2</div>
+        </div>
+        <div class="head-text">
+          <div class="eyebrow">You finished part 1</div>
+          <div class="title">Part 2 in 7 days</div>
+          <div class="subtitle">Get notified the moment new episodes drop</div>
+        </div>
+      </div>
+
+      <div class="body">
+        <button class="cta-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          Notify me
+        </button>
+        <button class="cta-secondary">Maybe later</button>
+
+        <div class="rec-section">
+          <div class="rec-header">
+            <div class="rec-title">Watch next</div>
+            <a class="rec-link">See all</a>
+          </div>
+          <div class="rec-grid">
+            <div class="rec-card">
+              <img src="https://alex03292303.github.io/drama-style-plugin/covers/16.jpg" alt="" />
+              <div class="name">After Midnight</div>
+              <div class="meta">22 ep</div>
+            </div>
+            <div class="rec-card">
+              <img src="https://alex03292303.github.io/drama-style-plugin/covers/17.jpg" alt="" />
+              <div class="name">Heir Apparent</div>
+              <div class="meta">30 ep</div>
+            </div>
+            <div class="rec-card">
+              <img src="https://alex03292303.github.io/drama-style-plugin/covers/18.jpg" alt="" />
+              <div class="name">Lost Tides</div>
+              <div class="meta">16 ep</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
