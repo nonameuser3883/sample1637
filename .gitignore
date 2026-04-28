@@ -12,3 +12,6 @@ figma-plugin/
 
 # Keep helper scripts private
 scripts/
+
+# Local Claude Code config
+.claude/
