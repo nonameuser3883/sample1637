@@ -15,3 +15,6 @@ scripts/
 
 # Local Claude Code config
 .claude/
+
+# Misc local folders that should not be public
+1 just png app screens/
