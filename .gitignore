@@ -9,3 +9,6 @@ docs/*
 
 # Keep figma-plugin private
 figma-plugin/
+
+# Keep helper scripts private
+scripts/

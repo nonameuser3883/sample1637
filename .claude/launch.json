@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dev (code + ui watchers)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 0
+    },
+    {
+      "name": "watch:code (esbuild)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "watch:code"],
+      "port": 0
+    },
+    {
+      "name": "watch:ui (vite build --watch)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "watch:ui"],
+      "port": 0
+    }
+  ]
+}
