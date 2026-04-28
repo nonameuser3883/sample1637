@@ -14,15 +14,38 @@ Use this folder when generating UI that involves series artwork (home feed, hero
 
 ### Cover URLs
 
-Base URL: `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/`
+Direct links to every cover file. Copy any URL into an `<img src="...">` — works everywhere (Claude Code preview, Gemini Canvas, Figma Make, v0, CodeSandbox).
+
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/01.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/02.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/03.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/04.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/05.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/06.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/07.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/08.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/09.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/10.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/11.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/12.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/13.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/14.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/15.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/16.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/17.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/18.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/19.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/20.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/21.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/22.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/23.png`
+- `https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/24.png`
 
 Usage in generated HTML/React:
 
 ```html
 <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/Assets/story-covers/01.png" alt="cover" />
 ```
-
-These URLs work everywhere — Claude Code preview, Gemini Canvas, Figma Make, v0, CodeSandbox. Nothing to download, no manifest to read: just drop the file name into the URL template.
 
 ### What's typical in these covers
 
