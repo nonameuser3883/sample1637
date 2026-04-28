@@ -99,14 +99,6 @@ Usage in generated HTML/React:
 | <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/coin/coin-pack-06.png" width="120"> | `coin-pack-06` |
 | <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/coin/lots-coins.png" width="120"> | `lots-coins` |
 
-### image-background
-
-| Preview | Slug |
-|---|---|
-| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/image-background/blue.png" width="120"> | `blue` |
-| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/image-background/brown.png" width="120"> | `brown` |
-| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/image-background/orange.png" width="120"> | `orange` |
-
 ### image-backgrounds
 
 | Preview | Slug |
@@ -122,7 +114,10 @@ Usage in generated HTML/React:
 | Preview | Slug |
 |---|---|
 | <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/image-surface/blue.png" width="120"> | `blue` |
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/image-surface/dark-brown.png" width="120"> | `dark-brown` |
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/image-surface/dark-premium-blue-2.png" width="120"> | `dark-premium-blue-2` |
 | <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/image-surface/dark-premium-blue.png" width="120"> | `dark-premium-blue` |
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/image-surface/orange.png" width="120"> | `orange` |
 | <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/image-surface/square-dark-premium-blue.png" width="120"> | `square-dark-premium-blue` |
 
 ### logo
