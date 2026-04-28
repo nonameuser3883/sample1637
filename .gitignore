@@ -4,3 +4,7 @@ figma-plugin/dist/
 *.log
 .env
 .env.*
+
+# Keep docs private — only assets-catalog.md is published (it powers GitHub asset previews)
+docs/*
+!docs/assets-catalog.md
