@@ -1,6 +1,4 @@
 .DS_Store
-node_modules/
-figma-plugin/dist/
 *.log
 .env
 .env.*
@@ -8,3 +6,6 @@ figma-plugin/dist/
 # Keep docs private — only assets-catalog.md is published (it powers GitHub asset previews)
 docs/*
 !docs/assets-catalog.md
+
+# Keep figma-plugin private
+figma-plugin/
