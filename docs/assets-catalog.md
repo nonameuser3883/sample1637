@@ -70,8 +70,21 @@ Usage in generated HTML/React:
 
 | Preview | Slug |
 |---|---|
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/3d-icons/download-container.png" width="120"> | `download-container` |
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/3d-icons/download.png" width="120"> | `download` |
 | <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/3d-icons/hand.png" width="120"> | `hand` |
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/3d-icons/no-internet.png" width="120"> | `no-internet` |
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/3d-icons/plane.png" width="120"> | `plane` |
 | <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/3d-icons/play-unlimited.png" width="120"> | `play-unlimited` |
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/3d-icons/train.png" width="120"> | `train` |
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/3d-icons/travel.png" width="120"> | `travel` |
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/3d-icons/yellow-trophy.png" width="120"> | `yellow-trophy` |
+
+### backdrop
+
+| Preview | Slug |
+|---|---|
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/backdrop/1.png" width="120"> | `1` |
 
 ### coin
 
@@ -94,10 +107,29 @@ Usage in generated HTML/React:
 | <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/image-background/brown.png" width="120"> | `brown` |
 | <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/image-background/orange.png" width="120"> | `orange` |
 
+### image-backgrounds
+
+| Preview | Slug |
+|---|---|
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/image-backgrounds/dark-blue.png" width="120"> | `dark-blue` |
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/image-backgrounds/glow-mixed.png" width="120"> | `glow-mixed` |
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/image-backgrounds/right-blue.png" width="120"> | `right-blue` |
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/image-backgrounds/top-blue.png" width="120"> | `top-blue` |
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/image-backgrounds/top-covers-with-blue.png" width="120"> | `top-covers-with-blue` |
+
+### image-surface
+
+| Preview | Slug |
+|---|---|
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/image-surface/blue.png" width="120"> | `blue` |
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/image-surface/dark-premium-blue.png" width="120"> | `dark-premium-blue` |
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/image-surface/square-dark-premium-blue.png" width="120"> | `square-dark-premium-blue` |
+
 ### logo
 
 | Preview | Slug |
 |---|---|
+| <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/logo/app-logo-golden-only-for-premium.png" width="120"> | `app-logo-golden-only-for-premium` |
 | <img src="https://raw.githubusercontent.com/alex03292303/My-Drama-Design-System-MD/main/assets/logo/app-logo.png" width="120"> | `app-logo` |
 
 ### story-covers
@@ -131,4 +163,4 @@ Usage in generated HTML/React:
 
 ---
 
-_Generated automatically. Total assets: 38._
+_Generated automatically. Total assets: 55._
