@@ -31,15 +31,6 @@ Direct links to every cover file. Copy any URL into an `<img src="...">` — wor
 - `https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/13.png`
 - `https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/14.png`
 - `https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/15.png`
-- `https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/16.png`
-- `https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/17.png`
-- `https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/18.png`
-- `https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/19.png`
-- `https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/20.png`
-- `https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/21.png`
-- `https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/22.png`
-- `https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/23.png`
-- `https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/24.png`
 
 Usage in generated HTML/React:
 
@@ -144,16 +135,7 @@ Usage in generated HTML/React:
 | <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/13.png" width="120"> | `13` |
 | <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/14.png" width="120"> | `14` |
 | <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/15.png" width="120"> | `15` |
-| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/16.png" width="120"> | `16` |
-| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/17.png" width="120"> | `17` |
-| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/18.png" width="120"> | `18` |
-| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/19.png" width="120"> | `19` |
-| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/20.png" width="120"> | `20` |
-| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/21.png" width="120"> | `21` |
-| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/22.png" width="120"> | `22` |
-| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/23.png" width="120"> | `23` |
-| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/story-covers/24.png" width="120"> | `24` |
 
 ---
 
-_Generated automatically. Total assets: 55._
+_Generated automatically. Total assets: 46._
