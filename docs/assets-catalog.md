@@ -59,12 +59,38 @@ Usage in generated HTML/React:
 
 | Preview | Slug |
 |---|---|
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/bag.png" width="120"> | `bag` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/bag2.png" width="120"> | `bag2` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/bell.png" width="120"> | `bell` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/bell2.png" width="120"> | `bell2` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/bookmark.png" width="120"> | `bookmark` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/bookmark2.png" width="120"> | `bookmark2` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/calendar.png" width="120"> | `calendar` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/camera.png" width="120"> | `camera` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/crown.png" width="120"> | `crown` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/crown2.png" width="120"> | `crown2` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/crown3.png" width="120"> | `crown3` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/crown4.png" width="120"> | `crown4` |
 | <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/download-container.png" width="120"> | `download-container` |
 | <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/download.png" width="120"> | `download` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/fire.png" width="120"> | `fire` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/fire2.png" width="120"> | `fire2` |
 | <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/hand.png" width="120"> | `hand` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/heart.png" width="120"> | `heart` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/heart2.png" width="120"> | `heart2` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/heart3.png" width="120"> | `heart3` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/heart4.png" width="120"> | `heart4` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/lock.png" width="120"> | `lock` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/lock2.png" width="120"> | `lock2` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/message.png" width="120"> | `message` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/movie.png" width="120"> | `movie` |
 | <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/no-internet.png" width="120"> | `no-internet` |
 | <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/plane.png" width="120"> | `plane` |
 | <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/play-unlimited.png" width="120"> | `play-unlimited` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/star.png" width="120"> | `star` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/star2.png" width="120"> | `star2` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/ticket.png" width="120"> | `ticket` |
+| <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/ticket2.png" width="120"> | `ticket2` |
 | <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/train.png" width="120"> | `train` |
 | <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/travel.png" width="120"> | `travel` |
 | <img src="https://raw.githubusercontent.com/nonameuser3883/sample1637/main/assets/3d-icons/yellow-trophy.png" width="120"> | `yellow-trophy` |
@@ -138,4 +164,4 @@ Usage in generated HTML/React:
 
 ---
 
-_Generated automatically. Total assets: 46._
+_Generated automatically. Total assets: 72._
